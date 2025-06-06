@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>UPI Payment ₹1500 - Amrut Dresses</title>
+  <title>UPI Payment ₹1000 - Amrut Dresses</title>
   <style>
     #upi-payment-container {
       max-width: 400px;
@@ -32,16 +32,16 @@
 </head>
 <body>
   <div id="upi-payment-container">
-    <h2>🧾 Pay ₹1500 to Amrut Dresses</h2>
+    <h2>🧾 Pay ₹1000 to Amrut Dresses</h2>
     <p><strong>UPI ID:</strong> AMRUTDRESSES.eazypay1@icici</p>
 
     <div id="qrcode"></div>
-    <a id="upiLink" href="#" target="_blank">Click here to Pay ₹1500</a>
+    <a id="upiLink" href="#" target="_blank">Click here to Pay ₹1000</a>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
-    const amount = 1500; // fixed amount ₹1500
+    const amount = 1000; // fixed amount ₹1000
     const upiID = "AMRUTDRESSES.eazypay1@icici";
     const payeeName = "Amrut Dresses";
     const upiUrl = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR`;
