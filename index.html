@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UPI QR Payment - Amrut Dresses</title>
+  <style>
+    #upi-payment-container {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    #upi-payment-container input,
+    #upi-payment-container button {
+      padding: 10px;
+      margin: 8px 0;
+      width: 90%;
+      max-width: 300px;
+      font-size: 16px;
+    }
+    #upiLink {
+      display: none;
+      font-size: 16px;
+      color: blue;
+      margin-top: 10px;
+      display: inline-block;
+    }
+    #qrcode {
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="upi-payment-container">
+    <h2>🧾 UPI QR Code</h2>
+    <p>Pay to: <strong>Amrut Dresses</strong></p>
+
+    <input type="number" id="amount" placeholder="Enter Amount ₹" min="1" step="any" />
+    <br />
+    <button onclick="generateQR()">Generate QR & Link</button>
+
+    <div id="qrcode"></div>
+    <a id="upiLink" href="#" target="_blank">Click here to Pay</a>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    let upiUrl = "";
+    let currentAmount = "";
+
+    function generateQR() {
+      const amountInput = document.getElementById("amount");
+      const amount = amountInput.value;
+      if (!amount || amount <= 0) {
+        alert("Enter a valid amount");
+        return;
+      }
+      currentAmount = amount;
+      const upiID = "AMRUTDRESSES.eazypay1@icici";
+      const payeeName = "Amrut Dresses";
+      upiUrl = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR`;
+
+      document.getElementById("qrcode").innerHTML = "";
+      new QRCode(document.getElementById("qrcode"), {
+        text: upiUrl,
+        width: 256,
+        height: 256,
+      });
+
+      const link = document.getElementById("upiLink");
+      link.href = upiUrl;
+      link.innerText = "Click here to Pay ₹" + amount;
+      link.style.display = "inline-block";
+    }
+  </script>
+</body>
+</html>
