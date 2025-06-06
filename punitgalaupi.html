@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UPI QR Payment - KP Designs</title>
+  <style>
+    #upi-payment-container {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    #payLink {
+      font-size: 16px;
+      color: blue;
+      margin-top: 10px;
+      display: inline-block;
+    }
+    #qrcode {
+      margin: 20px auto;
+    }
+    #error-message {
+      color: red;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="upi-payment-container">
+    <h2>🧾 UPI QR Code</h2>
+    <p>Pay to: <strong>KP Designs</strong></p>
+
+    <div id="qrcode"></div>
+    <a id="payLink" href="#" target="_blank"></a>
+    <div id="error-message"></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    function generateQR(amount) {
+      const upiID = 'kpdesigns1983-1@okicici';
+      const payeeName = 'KP Designs';
+      const upiUrl = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR`;
+
+      const qrcodeDiv = document.getElementById('qrcode');
+      qrcodeDiv.innerHTML = '';
+      new QRCode(qrcodeDiv, {
+        text: upiUrl,
+        width: 256,
+        height: 256,
+      });
+
+      const payLink = document.getElementById('payLink');
+      payLink.href = upiUrl;
+      payLink.textContent = `Click here to Pay ₹${amount}`;
+    }
+
+    function getAmountFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('amount');
+    }
+
+    window.onload = function() {
+      const amount = getAmountFromURL();
+      const errorMsgDiv = document.getElementById('error-message');
+      if (amount && !isNaN(amount) && amount > 0) {
+        generateQR(amount);
+      } else {
+        errorMsgDiv.textContent = 'Invalid or missing amount in the URL.';
+      }
+    };
+  </script>
+</body>
+</html>
