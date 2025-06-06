@@ -33,7 +33,7 @@
 <body>
   <div id="upi-payment-container">
     <h2>🧾 UPI QR Code</h2>
-    <p>Pay to: <strong>KP Designs</strong></p>
+    <p>Pay to: <strong>Punit Gala</strong></p>
 
     <div id="qrcode"></div>
     <a id="payLink" href="#" target="_blank"></a>
@@ -44,7 +44,7 @@
   <script>
     function generateQR(amount) {
       const upiID = 'kpdesigns1983-1@okicici';
-      const payeeName = 'KP Designs';
+      const payeeName = 'Punit Gala';
       const upiUrl = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR`;
 
       const qrcodeDiv = document.getElementById('qrcode');
