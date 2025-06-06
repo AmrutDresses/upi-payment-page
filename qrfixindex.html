@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UPI Payment ₹500 - Amrut Dresses</title>
+  <style>
+    #upi-payment-container {
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    #upiLink {
+      font-size: 18px;
+      color: #0066cc;
+      margin-top: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    #upiLink:hover {
+      text-decoration: underline;
+    }
+    #qrcode {
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="upi-payment-container">
+    <h2>🧾 Pay ₹500 to Amrut Dresses</h2>
+    <p><strong>UPI ID:</strong> AMRUTDRESSES.eazypay1@icici</p>
+
+    <div id="qrcode"></div>
+    <a id="upiLink" href="#" target="_blank">Click here to Pay ₹500</a>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    const amount = 500; // fixed amount ₹500
+    const upiID = "AMRUTDRESSES.eazypay1@icici";
+    const payeeName = "Amrut Dresses";
+    const upiUrl = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR`;
+
+    // Generate QR code on page load
+    document.getElementById("qrcode").innerHTML = "";
+    new QRCode(document.getElementById("qrcode"), {
+      text: upiUrl,
+      width: 256,
+      height: 256,
+    });
+
+    const link = document.getElementById("upiLink");
+    link.href = upiUrl;
+    link.innerText = "Click here to Pay ₹" + amount;
+  </script>
+</body>
+</html>
