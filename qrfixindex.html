@@ -14,16 +14,7 @@
       font-family: Arial, sans-serif;
       text-align: center;
     }
-    #upi-payment-container input,
-    #upi-payment-container button {
-      padding: 10px;
-      margin: 8px 0;
-      width: 90%;
-      max-width: 300px;
-      font-size: 16px;
-    }
     #payLink {
-      display: none;
       font-size: 16px;
       color: blue;
       margin-top: 10px;
@@ -32,6 +23,11 @@
     #qrcode {
       margin: 20px auto;
     }
+    #error-message {
+      color: red;
+      font-weight: bold;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -39,24 +35,14 @@
     <h2>🧾 UPI QR Code</h2>
     <p>Pay to: <strong>Amrut Dresses</strong></p>
 
-    <input type="number" id="amount" placeholder="Enter Amount ₹" min="1" step="any" />
-    <br />
-    <button onclick="generateQR()">Generate QR & Link</button>
-
     <div id="qrcode"></div>
-    <a id="payLink" href="#" target="_blank">Click here to Pay</a>
+    <a id="payLink" href="#" target="_blank"></a>
+    <div id="error-message"></div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
-    function generateQR() {
-      const amountInput = document.getElementById('amount');
-      const amount = amountInput.value.trim();
-      if (!amount || isNaN(amount) || amount <= 0) {
-        alert('Please enter a valid amount');
-        return;
-      }
-
+    function generateQR(amount) {
       const upiID = 'AMRUTDRESSES.eazypay1@icici';
       const payeeName = 'Amrut Dresses';
       const upiUrl = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR`;
@@ -72,21 +58,20 @@
       const payLink = document.getElementById('payLink');
       payLink.href = upiUrl;
       payLink.textContent = `Click here to Pay ₹${amount}`;
-      payLink.style.display = 'inline-block';
     }
 
-    // Helper to get amount param from URL
     function getAmountFromURL() {
       const params = new URLSearchParams(window.location.search);
       return params.get('amount');
     }
 
-    // On load, auto-fill amount and generate QR if amount param exists
     window.onload = function() {
-      const amountFromURL = getAmountFromURL();
-      if (amountFromURL && !isNaN(amountFromURL) && amountFromURL > 0) {
-        document.getElementById('amount').value = amountFromURL;
-        generateQR();
+      const amount = getAmountFromURL();
+      const errorMsgDiv = document.getElementById('error-message');
+      if (amount && !isNaN(amount) && amount > 0) {
+        generateQR(amount);
+      } else {
+        errorMsgDiv.textContent = 'Invalid or missing amount in the URL.';
       }
     };
   </script>
