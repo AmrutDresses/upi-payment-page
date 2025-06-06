@@ -28,6 +28,19 @@
       font-weight: bold;
       margin-top: 20px;
     }
+    #shipping-info {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #333;
+    }
+    #shipping-info a {
+      color: #25D366; /* WhatsApp green */
+      text-decoration: none;
+      font-weight: bold;
+    }
+    #shipping-info a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -38,6 +51,11 @@
     <div id="qrcode"></div>
     <a id="payLink" href="#" target="_blank"></a>
     <div id="error-message"></div>
+
+    <div id="shipping-info">
+      Share your shipping address and payment screenshot to WhatsApp number - 
+      <a href="https://wa.me/917405235350" target="_blank">7405235350</a>
+    </div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
